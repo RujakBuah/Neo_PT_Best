@@ -9,7 +9,7 @@ import 'package:pt_best/features/auth/presentation/pages/signup_page.dart';
 import 'package:pt_best/features/auth/presentation/widgets/auth_chip.dart';
 import 'package:pt_best/features/auth/presentation/widgets/auth_field.dart';
 import 'package:pt_best/features/auth/presentation/widgets/auth_gradient_button.dart';
-import 'package:pt_best/features/jobs/presentation/job_viewer_page.dart';
+import 'package:pt_best/features/jobs/presentation/pages/job_viewer_page.dart';
 
 class LoginPage extends StatefulWidget {
   // ignore: strict_top_level_inference
