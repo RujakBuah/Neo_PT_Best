@@ -9,6 +9,7 @@ import 'package:pt_best/features/auth/presentation/pages/signup_page.dart';
 import 'package:pt_best/features/auth/presentation/widgets/auth_chip.dart';
 import 'package:pt_best/features/auth/presentation/widgets/auth_field.dart';
 import 'package:pt_best/features/auth/presentation/widgets/auth_gradient_button.dart';
+import 'package:pt_best/features/jobs/presentation/job_viewer_page.dart';
 
 class LoginPage extends StatefulWidget {
   // ignore: strict_top_level_inference
@@ -37,6 +38,12 @@ class _LoginPageState extends State<LoginPage> {
       listener: (context, state) {
         if (state is AuthFailure) {
           showSnackBar(context, state.message);
+        } else if (state is AuthSuccess) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            JobViewerPage.route(),
+            (route) => false,
+          );
         }
       },
       child: Scaffold(
