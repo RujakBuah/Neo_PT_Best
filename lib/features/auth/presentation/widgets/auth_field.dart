@@ -25,6 +25,7 @@ class AuthField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
         prefixIcon: Icon(prefixIcon),
+        fillColor: AppPalette.background,
       ),
       validator: (value) {
         if (value!.isEmpty) {

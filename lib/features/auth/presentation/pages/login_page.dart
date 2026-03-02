@@ -5,33 +5,30 @@ import 'package:pt_best/core/common/widgets/loader.dart';
 import 'package:pt_best/core/theme/app_palete.dart';
 import 'package:pt_best/core/utils/show_snackbar.dart';
 import 'package:pt_best/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:pt_best/features/auth/presentation/pages/login_page.dart';
+import 'package:pt_best/features/auth/presentation/pages/signup_page.dart';
 import 'package:pt_best/features/auth/presentation/widgets/auth_chip.dart';
 import 'package:pt_best/features/auth/presentation/widgets/auth_field.dart';
 import 'package:pt_best/features/auth/presentation/widgets/auth_gradient_button.dart';
+import 'package:pt_best/features/jobs/presentation/job_viewer_page.dart';
 
-class SignupPage extends StatefulWidget {
+class LoginPage extends StatefulWidget {
   // ignore: strict_top_level_inference
-  static route() => MaterialPageRoute(builder: (context) => const SignupPage());
-  const SignupPage({super.key});
+  static route() => MaterialPageRoute(builder: (context) => const LoginPage());
+  const LoginPage({super.key});
 
   @override
-  State<SignupPage> createState() => _SignupPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _SignupPageState extends State<SignupPage> {
+class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final nameController = TextEditingController();
   final formKey = GlobalKey<FormState>();
-  final PageController _pageController = PageController();
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
-    nameController.dispose();
-    _pageController.dispose();
     super.dispose();
   }
 
@@ -41,6 +38,12 @@ class _SignupPageState extends State<SignupPage> {
       listener: (context, state) {
         if (state is AuthFailure) {
           showSnackBar(context, state.message);
+        } else if (state is AuthSuccess) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            JobViewerPage.route(),
+            (route) => false,
+          );
         }
       },
       child: Scaffold(
@@ -72,16 +75,16 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       RichText(
                         text: TextSpan(
-                          text: 'Create your \n',
+                          text: 'Welcome back ',
                           style: Theme.of(context).textTheme.displayLarge,
                           children: [
                             TextSpan(
-                              text: 'account.\n',
+                              text: 'worker!\n',
                               style: Theme.of(context).textTheme.displayLarge!
                                   .copyWith(color: AppPalette.primary),
                             ),
                             TextSpan(
-                              text: 'Join thousands of workers today!\n',
+                              text: 'Sign in to find your next job.',
                               style: Theme.of(context).textTheme.headlineMedium!
                                   .copyWith(
                                     color: AppPalette.textSecondaryOnDark,
@@ -95,6 +98,7 @@ class _SignupPageState extends State<SignupPage> {
                 ),
 
                 // ── Form sheet ────────────────────────────────────
+                const SizedBox(height: 40),
                 Expanded(
                   flex: 3,
                   child: Container(
@@ -115,9 +119,9 @@ class _SignupPageState extends State<SignupPage> {
                           children: [
                             const SizedBox(height: 20),
                             AuthChip(
-                              initialIndex: 0,
+                              initialIndex: 1,
                               onTabChanged: (index) {
-                                if (index == 1) {
+                                if (index == 0) {
                                   Navigator.pushReplacement(
                                     context,
                                     PageRouteBuilder(
@@ -126,7 +130,7 @@ class _SignupPageState extends State<SignupPage> {
                                             context,
                                             animation,
                                             secondaryAnimation,
-                                          ) => LoginPage(),
+                                          ) => SignupPage(),
                                       transitionsBuilder:
                                           (
                                             context,
@@ -134,7 +138,7 @@ class _SignupPageState extends State<SignupPage> {
                                             secondaryAnimation,
                                             child,
                                           ) {
-                                            const begin = Offset(-1.0, 0.0);
+                                            const begin = Offset(1.0, 0.0);
                                             const end = Offset.zero;
                                             const curve = Curves.ease;
                                             final tween = Tween(
@@ -160,8 +164,6 @@ class _SignupPageState extends State<SignupPage> {
                             ),
                             Expanded(
                               child: PageView(
-                                controller: _pageController,
-                                physics: const NeverScrollableScrollPhysics(),
                                 children: [
                                   Builder(
                                     builder: (context) => Form(
@@ -176,12 +178,6 @@ class _SignupPageState extends State<SignupPage> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            AuthField(
-                                              hintText: 'Name',
-                                              controller: nameController,
-                                              prefixIcon: CupertinoIcons.person,
-                                            ),
-                                            const SizedBox(height: 20),
                                             AuthField(
                                               hintText: 'Email',
                                               controller: emailController,
@@ -202,12 +198,12 @@ class _SignupPageState extends State<SignupPage> {
                                                   ),
                                               child: AuthGradientButton(
                                                 buttonText:
-                                                    'Sign Up →', // use an arrow to indicate progression to next step
+                                                    'Login →', // use an arrow to indicate progression to next step
                                                 onPressed: () {
                                                   if (formKey.currentState!
                                                       .validate()) {
                                                     context.read<AuthBloc>().add(
-                                                      AuthSignUp(
+                                                      AuthLogin(
                                                         email: emailController
                                                             .text
                                                             .trim(),
@@ -215,9 +211,6 @@ class _SignupPageState extends State<SignupPage> {
                                                             passwordController
                                                                 .text
                                                                 .trim(),
-                                                        name: nameController
-                                                            .text
-                                                            .trim(),
                                                       ),
                                                     );
                                                   }
