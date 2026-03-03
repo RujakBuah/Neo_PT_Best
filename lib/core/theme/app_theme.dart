@@ -32,13 +32,13 @@ abstract final class AppTheme {
     ),
     // Card title / order number
     titleLarge: TextStyle(
-      fontSize: 16,
+      fontSize: 25,
       fontWeight: FontWeight.w600,
       color: AppPalette.textPrimary,
     ),
     // Price label
     titleMedium: TextStyle(
-      fontSize: 15,
+      fontSize: 18,
       fontWeight: FontWeight.w700,
       color: AppPalette.textPrimary,
     ),
@@ -139,11 +139,11 @@ abstract final class AppTheme {
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide.none,
+          borderSide: BorderSide(color: AppPalette.border, width: 1.5),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide.none,
+          borderSide: BorderSide(color: AppPalette.border, width: 1.5),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),

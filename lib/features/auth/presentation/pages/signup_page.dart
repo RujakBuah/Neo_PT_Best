@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pt_best/core/common/widgets/loader.dart';
 import 'package:pt_best/core/theme/app_palete.dart';
 import 'package:pt_best/core/utils/show_snackbar.dart';
@@ -41,6 +42,8 @@ class _SignupPageState extends State<SignupPage> {
       listener: (context, state) {
         if (state is AuthFailure) {
           showSnackBar(context, state.message);
+        } else if (state is AuthSuccess) {
+          context.go('/');
         }
       },
       child: Scaffold(

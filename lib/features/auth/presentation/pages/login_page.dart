@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pt_best/core/common/widgets/loader.dart';
 import 'package:pt_best/core/theme/app_palete.dart';
 import 'package:pt_best/core/utils/show_snackbar.dart';
@@ -9,7 +10,6 @@ import 'package:pt_best/features/auth/presentation/pages/signup_page.dart';
 import 'package:pt_best/features/auth/presentation/widgets/auth_chip.dart';
 import 'package:pt_best/features/auth/presentation/widgets/auth_field.dart';
 import 'package:pt_best/features/auth/presentation/widgets/auth_gradient_button.dart';
-import 'package:pt_best/features/jobs/presentation/job_viewer_page.dart';
 
 class LoginPage extends StatefulWidget {
   // ignore: strict_top_level_inference
@@ -39,11 +39,7 @@ class _LoginPageState extends State<LoginPage> {
         if (state is AuthFailure) {
           showSnackBar(context, state.message);
         } else if (state is AuthSuccess) {
-          Navigator.pushAndRemoveUntil(
-            context,
-            JobViewerPage.route(),
-            (route) => false,
-          );
+          context.go('/');
         }
       },
       child: Scaffold(

@@ -1,0 +1,28 @@
+part of 'job_bloc.dart';
+
+@immutable
+sealed class JobEvent {}
+
+final class JobUpload extends JobEvent {
+  final String title;
+  final String description;
+  final int payout;
+  final String jobType;
+  final String companyName;
+  final String? pickupLocation;
+  final String? dropoffLocation;
+  final DateTime completeBy;
+
+  JobUpload({
+    required this.title,
+    required this.description,
+    required this.payout,
+    required this.jobType,
+    required this.companyName,
+    this.pickupLocation,
+    this.dropoffLocation,
+    required this.completeBy,
+  });
+}
+
+final class JobFetchAllJobs extends JobEvent {}

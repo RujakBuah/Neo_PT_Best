@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pt_best/core/common/cubit/app_user_cubit.dart';
+import 'package:pt_best/core/router/app_router.dart';
 import 'package:pt_best/core/theme/app_theme.dart';
 import 'package:pt_best/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:pt_best/features/auth/presentation/pages/signup_page.dart';
+import 'package:pt_best/features/jobs/presentation/bloc/job_bloc.dart';
 import 'package:pt_best/init_dependencies.dart';
 
 void main() async {
@@ -10,7 +12,11 @@ void main() async {
   await initDependencies();
   runApp(
     MultiBlocProvider(
-      providers: [BlocProvider(create: (_) => serviceLocator<AuthBloc>())],
+      providers: [
+        BlocProvider(create: (_) => serviceLocator<AuthBloc>()),
+        BlocProvider(create: (_) => serviceLocator<AppUserCubit>()),
+        BlocProvider(create: (_) => serviceLocator<JobBloc>()),
+      ],
       child: const MyApp(),
     ),
   );
@@ -32,11 +38,11 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'PT Best',
       theme: AppTheme.light,
-      home: const SignupPage(),
+      routerConfig: appRouter,
     );
   }
 }
