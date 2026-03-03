@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pt_best/core/common/widgets/app_bar.dart';
+import 'package:pt_best/features/jobs/presentation/widgets/job_app_bar.dart';
 import 'package:pt_best/core/theme/app_palete.dart';
 import 'package:pt_best/features/jobs/presentation/bloc/job_bloc.dart';
 
