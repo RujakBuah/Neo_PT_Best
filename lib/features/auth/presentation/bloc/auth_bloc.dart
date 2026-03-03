@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pt_best/core/common/cubit/app_user_cubit.dart';
 import 'package:pt_best/core/common/entities/user.dart';
 import 'package:pt_best/core/usecase/usecase.dart';
 import 'package:pt_best/features/auth/domain/usecases/current_user.dart';
@@ -13,13 +14,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final UserSignUp _userSignUp;
   final CurrentUser _currentUser;
   final UserLogin _userLogin;
+  final AppUserCubit _appUserCubit;
   AuthBloc({
     required UserSignUp userSignUp,
     required CurrentUser currentUser,
     required UserLogin userLogin,
+    required AppUserCubit appUserCubit,
   }) : _userSignUp = userSignUp,
        _currentUser = currentUser,
        _userLogin = userLogin,
+       _appUserCubit = appUserCubit,
        super(AuthInitial()) {
     on<AuthEvent>((_, emit) => emit(AuthLoading()));
     on<AuthSignUp>(_onAuthSignUp);
@@ -65,6 +69,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   void _emitAuthSuccess(User user, Emitter<AuthState> emit) {
+    _appUserCubit.updateUser(user);
     emit(AuthSuccess(user));
   }
 }
