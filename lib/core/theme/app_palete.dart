@@ -76,4 +76,13 @@ abstract final class AppPalette {
   static const Color grey700 = Color(0xFF616161);
   static const Color grey800 = Color(0xFF424242);
   static const Color grey900 = Color(0xFF212121);
+
+  static const Color deliveryBg = Color(0xFFE3F2FD);
+  static const Color deliveryIcon = Color(0xFF0288D1);
+
+  static const Color cleaningBg = Color(0xFFE0F2F1);
+  static const Color cleaningIcon = Color(0xFF00897B);
+
+  static const Color repairBg = Color(0xFFFFF3E0);
+  static const Color repairIcon = Color(0xFFF57C00);
 }

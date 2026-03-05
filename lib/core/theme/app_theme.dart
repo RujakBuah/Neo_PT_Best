@@ -127,7 +127,7 @@ abstract final class AppTheme {
       // ── Input / Search bar ────────────────────────────────────────────────
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: AppPalette.inputFillLight,
+        fillColor: AppPalette.surface,
         hintStyle: const TextStyle(
           color: AppPalette.textHint,
           fontSize: 14,
