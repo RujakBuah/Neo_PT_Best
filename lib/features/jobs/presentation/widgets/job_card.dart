@@ -85,15 +85,18 @@ class JobCard extends StatelessWidget {
                   ),
                 ),
                 Spacer(),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: AppPalette.border,
-                      shape: BoxShape.circle,
+                GestureDetector(
+                  onTap: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: AppPalette.border,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(Icons.info_outline),
                     ),
-                    child: Icon(Icons.info_outline),
                   ),
                 ),
               ],
