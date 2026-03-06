@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pt_best/core/common/entities/job.dart';
 import 'package:pt_best/core/constants/constants.dart';
 import 'package:pt_best/core/theme/app_palete.dart';
 import 'package:pt_best/core/utils/format_number.dart';
+import 'package:pt_best/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:pt_best/features/jobs/presentation/bloc/job_bloc.dart';
+import 'package:pt_best/features/jobs/presentation/widgets/job_apply_button.dart';
 
 class JobCard extends StatelessWidget {
   final Job job;
@@ -10,6 +14,15 @@ class JobCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void jobApply() {
+      final authState = context.read<AuthBloc>().state;
+      if (authState is! AuthSuccess) return;
+
+      context.read<JobBloc>().add(
+        JobApply(jobId: job.id, userId: authState.user.id),
+      );
+    }
+
     return GestureDetector(
       onTap: () {},
       child: Container(
@@ -113,7 +126,7 @@ class JobCard extends StatelessWidget {
                     ),
                     children: [
                       TextSpan(
-                        text: job.companyName,
+                        text: job.postedBy,
                         style: Theme.of(context).textTheme.labelLarge!.copyWith(
                           color: AppPalette.textPrimary,
                         ),
@@ -138,6 +151,8 @@ class JobCard extends StatelessWidget {
                     ],
                   ),
                 ),
+                Spacer(),
+                JobApplyButton(buttonText: 'Apply →', onPressed: jobApply),
               ],
             ),
           ],

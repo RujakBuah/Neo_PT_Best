@@ -17,6 +17,8 @@ class AddJob implements UseCase<Job, AddJobParams> {
       jobType: params.jobType,
       companyName: params.companyName,
       completeBy: params.completeBy,
+      pickupLocation: params.pickupLocation,
+      dropoffLocation: params.dropoffLocation,
     );
   }
 }

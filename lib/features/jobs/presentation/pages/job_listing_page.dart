@@ -29,6 +29,10 @@ class _JobListingPageState extends State<JobListingPage> {
       appBar: JobAppBar(),
       body: BlocConsumer<JobBloc, JobState>(
         listener: (context, state) {
+          if (state is JobApplySuccess) {
+            showSnackBar(context, 'Successfully applied!');
+            context.read<JobBloc>().add(JobFetchAllJobs());
+          }
           if (state is JobFailure) {
             showSnackBar(context, state.error);
           }
@@ -38,6 +42,9 @@ class _JobListingPageState extends State<JobListingPage> {
             return const Loader();
           }
           if (state is JobDisplaySuccess) {
+            final int count = state.job
+                .where((job) => job.assignedTo == null)
+                .length;
             return SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,7 +55,7 @@ class _JobListingPageState extends State<JobListingPage> {
                     ).copyWith(top: 10),
                     child: RichText(
                       text: TextSpan(
-                        text: 'Available Jobs (${state.job.length})',
+                        text: 'Available Jobs ($count)',
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                     ),
@@ -59,7 +66,10 @@ class _JobListingPageState extends State<JobListingPage> {
                     itemCount: state.job.length,
                     itemBuilder: (context, index) {
                       final job = state.job[index];
-                      return JobCard(job: job);
+                      if (job.assignedTo == null) {
+                        return JobCard(job: job);
+                      }
+                      return SizedBox();
                     },
                   ),
                   SizedBox(height: 20),

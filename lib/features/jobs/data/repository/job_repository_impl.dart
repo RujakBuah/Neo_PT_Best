@@ -34,6 +34,8 @@ class JobRepositoryImpl implements JobRepository {
         companyName: companyName,
         status: 'pending',
         completeBy: completeBy,
+        pickupLocation: pickupLocation,
+        dropoffLocation: dropoffLocation,
       );
       final res = await jobRemoteDataSource.uploadJob(jobModel);
       return right(res);
@@ -47,6 +49,19 @@ class JobRepositoryImpl implements JobRepository {
     try {
       final job = await jobRemoteDataSource.getJobs();
       return right(job);
+    } on ServerException catch (e) {
+      return left(Failure(e.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> applyForJob({
+    required String jobId,
+    required String userId,
+  }) async {
+    try {
+      await jobRemoteDataSource.applyForJob(jobId: jobId, userId: userId);
+      return right(unit);
     } on ServerException catch (e) {
       return left(Failure(e.message));
     }
