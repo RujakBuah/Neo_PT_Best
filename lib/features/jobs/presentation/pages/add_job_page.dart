@@ -29,7 +29,7 @@ class _AddJobPageState extends State<AddJobPage> {
   final dropOffLocationController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
-  void uploadJob() {
+  void uploadDeliveryJob() {
     if (formKey.currentState!.validate() && selectedDate != null) {
       context.read<JobBloc>().add(
         JobUpload(
@@ -40,6 +40,21 @@ class _AddJobPageState extends State<AddJobPage> {
           companyName: nameController.text.trim(),
           pickupLocation: pickupLocationController.text.trim(),
           dropoffLocation: dropOffLocationController.text.trim(),
+          completeBy: selectedDate!,
+        ),
+      );
+    }
+  }
+
+  void uploadOtherJob() {
+    if (formKey.currentState!.validate() && selectedDate != null) {
+      context.read<JobBloc>().add(
+        JobUpload(
+          title: titleController.text.trim(),
+          description: descriptionController.text.trim(),
+          payout: int.parse(payoutController.text.trim()),
+          jobType: jobType,
+          companyName: nameController.text.trim(),
           completeBy: selectedDate!,
         ),
       );
@@ -133,36 +148,42 @@ class _AddJobPageState extends State<AddJobPage> {
                     const SizedBox(height: 10),
                     jobPayoutDate(context),
                     const SizedBox(height: 10),
-                    Text(
-                      'PICKUP LOCATION',
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        color: AppPalette.iconDefault,
-                        fontWeight: FontWeight.bold,
+                    if (jobType == 'Delivery') ...[
+                      Text(
+                        'PICKUP LOCATION',
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          color: AppPalette.iconDefault,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 5),
-                    JobEditor(
-                      controller: pickupLocationController,
-                      hintText: 'Kos Agriya Living, Gamping, Sleman',
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      'DROPOFF LOCATION',
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        color: AppPalette.iconDefault,
-                        fontWeight: FontWeight.bold,
+                      const SizedBox(height: 5),
+                      JobEditor(
+                        controller: pickupLocationController,
+                        hintText: 'Kos Agriya Living, Gamping, Sleman',
                       ),
-                    ),
-                    const SizedBox(height: 5),
-                    JobEditor(
-                      controller: dropOffLocationController,
-                      hintText: 'Kec. Pogung, Sleman',
-                    ),
-                    const SizedBox(height: 15),
+                      const SizedBox(height: 10),
+                      Text(
+                        'DROPOFF LOCATION',
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          color: AppPalette.iconDefault,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      JobEditor(
+                        controller: dropOffLocationController,
+                        hintText: 'Kec. Pogung, Sleman',
+                      ),
+                    ],
+                    SizedBox(height: 15),
                     JobGradientButton(
                       buttonText: 'Post Job →',
                       onPressed: () {
-                        uploadJob();
+                        if (jobType == 'Delivery') {
+                          uploadDeliveryJob();
+                        } else {
+                          uploadOtherJob();
+                        }
                       },
                     ),
                   ],
@@ -217,7 +238,7 @@ class _AddJobPageState extends State<AddJobPage> {
                       vertical: 12,
                     ),
                     decoration: BoxDecoration(
-                      color: AppPalette.inputFillLight,
+                      color: AppPalette.surface,
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(color: AppPalette.border, width: 1.5),
                     ),
@@ -279,6 +300,7 @@ class _AddJobPageState extends State<AddJobPage> {
                           : AppPalette.border,
                       width: 1.5,
                     ),
+                    color: AppPalette.surface,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,

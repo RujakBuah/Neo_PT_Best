@@ -15,4 +15,9 @@ abstract interface class JobRepository {
   });
 
   Future<Either<Failure, List<Job>>> getJobs();
+
+  Future<Either<Failure, Unit>> applyForJob({
+    required String jobId,
+    required String userId,
+  });
 }

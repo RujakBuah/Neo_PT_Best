@@ -26,3 +26,10 @@ final class JobUpload extends JobEvent {
 }
 
 final class JobFetchAllJobs extends JobEvent {}
+
+final class JobApply extends JobEvent {
+  final String jobId;
+  final String userId;
+
+  JobApply({required this.jobId, required this.userId});
+}

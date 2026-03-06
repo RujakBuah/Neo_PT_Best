@@ -1,7 +1,9 @@
 part of 'job_bloc.dart';
 
 @immutable
-sealed class JobState {}
+sealed class JobState {
+  const JobState();
+}
 
 final class JobInitial extends JobState {}
 
@@ -9,12 +11,14 @@ final class JobLoading extends JobState {}
 
 final class JobFailure extends JobState {
   final String error;
-  JobFailure(this.error);
+  const JobFailure(this.error);
 }
 
 final class JobUploadSuccess extends JobState {}
 
 final class JobDisplaySuccess extends JobState {
   final List<Job> job;
-  JobDisplaySuccess(this.job);
+  const JobDisplaySuccess(this.job);
 }
+
+final class JobApplySuccess extends JobState {}

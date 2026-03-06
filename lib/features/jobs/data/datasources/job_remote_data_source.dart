@@ -6,6 +6,8 @@ abstract interface class JobRemoteDataSource {
   Session? get currentUserSession;
   Future<JobModel> uploadJob(JobModel job);
   Future<List<JobModel>> getJobs();
+  Future<void> applyForJob({required String jobId, required String userId});
+  Future<int> getAvailableJobCount();
 }
 
 class JobRemoteDataSourceImpl implements JobRemoteDataSource {
@@ -15,8 +17,17 @@ class JobRemoteDataSourceImpl implements JobRemoteDataSource {
   @override
   Future<List<JobModel>> getJobs() async {
     try {
-      final jobs = await supabaseClient.from('jobs').select();
-      return jobs.map((job) => JobModel.fromJson(job)).toList();
+      final jobs = await supabaseClient
+          .from('jobs')
+          .select(
+            '*, posted_by_profile:profiles!jobs_posted_by_fkey(name), assigned_to_profile:profiles!jobs_assigned_to_fkey(name)',
+          );
+      return jobs.map((job) {
+        return JobModel.fromJson(job).copyWith(
+          postedBy: job['posted_by_profile']?['name'] as String?,
+          assignedTo: job['assigned_to_profile']?['name'] as String?,
+        );
+      }).toList();
     } on PostgrestException catch (e) {
       throw ServerException(e.message);
     } catch (e) {
@@ -36,6 +47,35 @@ class JobRemoteDataSourceImpl implements JobRemoteDataSource {
       throw ServerException(e.message);
     } catch (e) {
       throw ServerException(e.toString());
+    }
+  }
+
+  @override
+  Future<void> applyForJob({
+    required String jobId,
+    required String userId,
+  }) async {
+    try {
+      await supabaseClient
+          .from('jobs')
+          .update({'assigned_to': userId})
+          .eq('id', jobId);
+    } on PostgrestException catch (e) {
+      throw ServerException(e.message);
+    }
+  }
+
+  @override
+  Future<int> getAvailableJobCount() async {
+    try {
+      final response = await supabaseClient
+          .from('jobs')
+          .select('*')
+          .isFilter('assigned_to', null)
+          .count(CountOption.exact);
+      return response.count;
+    } on PostgrestException catch (e) {
+      throw ServerException(e.message);
     }
   }
 
