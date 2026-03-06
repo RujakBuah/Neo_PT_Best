@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pt_best/core/common/entities/job.dart';
 import 'package:pt_best/core/constants/constants.dart';
 import 'package:pt_best/core/theme/app_palete.dart';
@@ -99,7 +100,9 @@ class JobCard extends StatelessWidget {
                 ),
                 Spacer(),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    context.go('/job-info', extra: job);
+                  },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(

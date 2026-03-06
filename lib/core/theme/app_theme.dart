@@ -64,6 +64,12 @@ abstract final class AppTheme {
       fontWeight: FontWeight.w500,
       color: AppPalette.textSecondary,
     ),
+    headlineSmall: TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.w500,
+      color: AppPalette.textPrimary,
+      letterSpacing: 0.3,
+    ),
   );
 
   // ── Light Theme ───────────────────────────────────────────────────────────
