@@ -22,3 +22,5 @@ final class JobDisplaySuccess extends JobState {
 }
 
 final class JobApplySuccess extends JobState {}
+
+final class JobSeeInfoSuccess extends JobState {}
