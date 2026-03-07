@@ -20,4 +20,10 @@ class Constants {
     'Cleaning': AppPalette.cleaningBg,
     'Repair': AppPalette.repairBg,
   };
+
+  static const Map<String, Color> jobStatusBgColors = {
+    'pending': AppPalette.pending,
+    'accepted': AppPalette.accepted,
+    'completed': AppPalette.completed,
+  };
 }
