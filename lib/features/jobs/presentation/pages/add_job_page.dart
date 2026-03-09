@@ -28,6 +28,7 @@ class _AddJobPageState extends State<AddJobPage> {
   final pickupLocationController = TextEditingController();
   final dropOffLocationController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  final jobLocationController = TextEditingController();
 
   void uploadDeliveryJob() {
     if (formKey.currentState!.validate() && selectedDate != null) {
@@ -56,6 +57,7 @@ class _AddJobPageState extends State<AddJobPage> {
           jobType: jobType,
           companyName: nameController.text.trim(),
           completeBy: selectedDate!,
+          jobLocation: jobLocationController.text.trim(),
         ),
       );
     }
@@ -81,6 +83,7 @@ class _AddJobPageState extends State<AddJobPage> {
     nameController.dispose();
     pickupLocationController.dispose();
     dropOffLocationController.dispose();
+    jobLocationController.dispose();
   }
 
   @override
@@ -120,6 +123,7 @@ class _AddJobPageState extends State<AddJobPage> {
                     JobEditor(
                       controller: titleController,
                       hintText: 'e.g. Delivery to Asep Tambal Ban',
+                      input: 'Job Title',
                     ),
                     const SizedBox(height: 10),
                     Text(
@@ -130,7 +134,11 @@ class _AddJobPageState extends State<AddJobPage> {
                       ),
                     ),
                     const SizedBox(height: 5),
-                    JobEditor(controller: nameController, hintText: 'PT Worst'),
+                    JobEditor(
+                      controller: nameController,
+                      hintText: 'PT Worst',
+                      input: 'Company Name',
+                    ),
                     const SizedBox(height: 10),
                     Text(
                       'JOB DESCRIPTION',
@@ -144,6 +152,7 @@ class _AddJobPageState extends State<AddJobPage> {
                       controller: descriptionController,
                       hintText:
                           'Describe the task, item details, weight, dimensions, etc.',
+                      input: 'Description',
                     ),
                     const SizedBox(height: 10),
                     jobPayoutDate(context),
@@ -160,6 +169,7 @@ class _AddJobPageState extends State<AddJobPage> {
                       JobEditor(
                         controller: pickupLocationController,
                         hintText: 'Kos Agriya Living, Gamping, Sleman',
+                        input: 'Pickup Location',
                       ),
                       const SizedBox(height: 10),
                       Text(
@@ -173,6 +183,22 @@ class _AddJobPageState extends State<AddJobPage> {
                       JobEditor(
                         controller: dropOffLocationController,
                         hintText: 'Kec. Pogung, Sleman',
+                        input: 'Dropoff Location',
+                      ),
+                    ],
+                    if (jobType != 'Delivery') ...[
+                      Text(
+                        'JOB LOCATION',
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          color: AppPalette.iconDefault,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      JobEditor(
+                        controller: jobLocationController,
+                        hintText: 'Kos Agriya Living, Gamping, Sleman',
+                        input: 'Job Location',
                       ),
                     ],
                     SizedBox(height: 15),
@@ -212,7 +238,11 @@ class _AddJobPageState extends State<AddJobPage> {
                 ),
               ),
               const SizedBox(height: 5),
-              JobEditor(controller: payoutController, hintText: '100000'),
+              JobEditor(
+                controller: payoutController,
+                hintText: '100000',
+                input: 'Payout',
+              ),
             ],
           ),
         ),

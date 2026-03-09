@@ -19,6 +19,7 @@ class AddJob implements UseCase<Job, AddJobParams> {
       completeBy: params.completeBy,
       pickupLocation: params.pickupLocation,
       dropoffLocation: params.dropoffLocation,
+      jobLocation: params.jobLocation,
     );
   }
 }
@@ -32,6 +33,7 @@ class AddJobParams {
   final String? pickupLocation;
   final String? dropoffLocation;
   final DateTime completeBy;
+  final String? jobLocation;
 
   AddJobParams({
     required this.title,
@@ -42,5 +44,6 @@ class AddJobParams {
     this.pickupLocation,
     this.dropoffLocation,
     required this.completeBy,
+    this.jobLocation,
   });
 }

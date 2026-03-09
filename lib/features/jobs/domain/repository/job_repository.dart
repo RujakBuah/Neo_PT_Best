@@ -12,6 +12,7 @@ abstract interface class JobRepository {
     String? pickupLocation,
     String? dropoffLocation,
     required DateTime completeBy,
+    String? jobLocation,
   });
 
   Future<Either<Failure, List<Job>>> getJobs();
