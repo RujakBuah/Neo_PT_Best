@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class JobEditor extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
+  final String input;
   const JobEditor({
     super.key,
     required this.controller,
     required this.hintText,
+    required this.input,
   });
 
   @override
@@ -17,7 +19,7 @@ class JobEditor extends StatelessWidget {
       decoration: InputDecoration(hintText: hintText),
       validator: (value) {
         if (value!.isEmpty) {
-          return '$hintText is missng';
+          return '$input is missng';
         }
         return null;
       },

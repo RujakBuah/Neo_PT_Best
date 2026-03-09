@@ -123,6 +123,7 @@ class _AddJobPageState extends State<AddJobPage> {
                     JobEditor(
                       controller: titleController,
                       hintText: 'e.g. Delivery to Asep Tambal Ban',
+                      input: 'Job Title',
                     ),
                     const SizedBox(height: 10),
                     Text(
@@ -133,7 +134,11 @@ class _AddJobPageState extends State<AddJobPage> {
                       ),
                     ),
                     const SizedBox(height: 5),
-                    JobEditor(controller: nameController, hintText: 'PT Worst'),
+                    JobEditor(
+                      controller: nameController,
+                      hintText: 'PT Worst',
+                      input: 'Company Name',
+                    ),
                     const SizedBox(height: 10),
                     Text(
                       'JOB DESCRIPTION',
@@ -147,6 +152,7 @@ class _AddJobPageState extends State<AddJobPage> {
                       controller: descriptionController,
                       hintText:
                           'Describe the task, item details, weight, dimensions, etc.',
+                      input: 'Description',
                     ),
                     const SizedBox(height: 10),
                     jobPayoutDate(context),
@@ -163,6 +169,7 @@ class _AddJobPageState extends State<AddJobPage> {
                       JobEditor(
                         controller: pickupLocationController,
                         hintText: 'Kos Agriya Living, Gamping, Sleman',
+                        input: 'Pickup Location',
                       ),
                       const SizedBox(height: 10),
                       Text(
@@ -176,6 +183,7 @@ class _AddJobPageState extends State<AddJobPage> {
                       JobEditor(
                         controller: dropOffLocationController,
                         hintText: 'Kec. Pogung, Sleman',
+                        input: 'Dropoff Location',
                       ),
                     ],
                     if (jobType != 'Delivery') ...[
@@ -190,6 +198,7 @@ class _AddJobPageState extends State<AddJobPage> {
                       JobEditor(
                         controller: jobLocationController,
                         hintText: 'Kos Agriya Living, Gamping, Sleman',
+                        input: 'Job Location',
                       ),
                     ],
                     SizedBox(height: 15),
@@ -229,7 +238,11 @@ class _AddJobPageState extends State<AddJobPage> {
                 ),
               ),
               const SizedBox(height: 5),
-              JobEditor(controller: payoutController, hintText: '100000'),
+              JobEditor(
+                controller: payoutController,
+                hintText: '100000',
+                input: 'Payout',
+              ),
             ],
           ),
         ),
