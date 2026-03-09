@@ -21,6 +21,7 @@ class JobRepositoryImpl implements JobRepository {
     String? pickupLocation,
     String? dropoffLocation,
     required DateTime completeBy,
+    String? jobLocation,
   }) async {
     try {
       JobModel jobModel = JobModel(
@@ -36,6 +37,7 @@ class JobRepositoryImpl implements JobRepository {
         completeBy: completeBy,
         pickupLocation: pickupLocation,
         dropoffLocation: dropoffLocation,
+        jobLocation: jobLocation,
       );
       final res = await jobRemoteDataSource.uploadJob(jobModel);
       return right(res);

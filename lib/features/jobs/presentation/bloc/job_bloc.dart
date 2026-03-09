@@ -38,6 +38,7 @@ class JobBloc extends Bloc<JobEvent, JobState> {
         pickupLocation: event.pickupLocation,
         dropoffLocation: event.dropoffLocation,
         completeBy: event.completeBy,
+        jobLocation: event.jobLocation,
       ),
     );
 

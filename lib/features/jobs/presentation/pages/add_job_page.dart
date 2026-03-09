@@ -28,6 +28,7 @@ class _AddJobPageState extends State<AddJobPage> {
   final pickupLocationController = TextEditingController();
   final dropOffLocationController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  final jobLocationController = TextEditingController();
 
   void uploadDeliveryJob() {
     if (formKey.currentState!.validate() && selectedDate != null) {
@@ -56,6 +57,7 @@ class _AddJobPageState extends State<AddJobPage> {
           jobType: jobType,
           companyName: nameController.text.trim(),
           completeBy: selectedDate!,
+          jobLocation: jobLocationController.text.trim(),
         ),
       );
     }
@@ -81,6 +83,7 @@ class _AddJobPageState extends State<AddJobPage> {
     nameController.dispose();
     pickupLocationController.dispose();
     dropOffLocationController.dispose();
+    jobLocationController.dispose();
   }
 
   @override
@@ -173,6 +176,20 @@ class _AddJobPageState extends State<AddJobPage> {
                       JobEditor(
                         controller: dropOffLocationController,
                         hintText: 'Kec. Pogung, Sleman',
+                      ),
+                    ],
+                    if (jobType != 'Delivery') ...[
+                      Text(
+                        'JOB LOCATION',
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          color: AppPalette.iconDefault,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      JobEditor(
+                        controller: jobLocationController,
+                        hintText: 'Kos Agriya Living, Gamping, Sleman',
                       ),
                     ],
                     SizedBox(height: 15),

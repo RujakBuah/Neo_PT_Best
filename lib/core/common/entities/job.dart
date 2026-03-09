@@ -12,6 +12,7 @@ class Job {
   final String? dropoffLocation;
   final String status;
   final DateTime completeBy;
+  final String? jobLocation;
 
   Job({
     required this.id,
@@ -27,5 +28,6 @@ class Job {
     this.dropoffLocation,
     required this.status,
     required this.completeBy,
+    this.jobLocation,
   });
 }

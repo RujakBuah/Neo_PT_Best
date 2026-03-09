@@ -147,6 +147,65 @@ class _JobInfoPageState extends State<JobInfoPage> {
                   SizedBox(height: 8),
                   Divider(),
                   SizedBox(height: 8),
+                  if (widget.job.jobType == 'Delivery') ...[
+                    RichText(
+                      text: TextSpan(
+                        text: 'PICKUP\n',
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: AppPalette.textSecondaryOnDark,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: widget.job.pickupLocation,
+                            style: Theme.of(context).textTheme.bodyLarge!
+                                .copyWith(
+                                  color: AppPalette.textPrimary,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    RichText(
+                      text: TextSpan(
+                        text: 'DROPOFF\n',
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: AppPalette.textSecondaryOnDark,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: widget.job.dropoffLocation,
+                            style: Theme.of(context).textTheme.bodyLarge!
+                                .copyWith(
+                                  color: AppPalette.textPrimary,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                  if (widget.job.jobType != 'Delivery') ...[
+                    RichText(
+                      text: TextSpan(
+                        text: 'JOB LOCATION\n',
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: AppPalette.textSecondaryOnDark,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: widget.job.jobLocation,
+                            style: Theme.of(context).textTheme.bodyLarge!
+                                .copyWith(
+                                  color: AppPalette.textPrimary,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ],
               ),
             ),

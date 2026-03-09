@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pt_best/core/common/entities/job.dart';
 import 'package:pt_best/core/theme/app_palete.dart';
 import 'package:pt_best/features/auth/presentation/bloc/auth_bloc.dart';
@@ -21,13 +22,20 @@ class JobInfoNavBar extends StatelessWidget {
       );
     }
 
-    return Container(
-      padding: EdgeInsets.all(16.0),
-      decoration: BoxDecoration(color: AppPalette.surface),
-      child: SafeArea(
-        child: JobInfoApplyButton(
-          buttonText: 'Apply for this Job →',
-          onPressed: jobApply,
+    return BlocListener<JobBloc, JobState>(
+      listener: (context, state) {
+        if (state is JobApplySuccess) {
+          context.go('/');
+        }
+      },
+      child: Container(
+        padding: EdgeInsets.all(16.0),
+        decoration: BoxDecoration(color: AppPalette.surface),
+        child: SafeArea(
+          child: JobInfoApplyButton(
+            buttonText: 'Apply for this Job →',
+            onPressed: jobApply,
+          ),
         ),
       ),
     );

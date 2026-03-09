@@ -15,6 +15,7 @@ class JobModel extends Job {
     super.dropoffLocation,
     required super.status,
     required super.completeBy,
+    super.jobLocation,
   });
 
   Map<String, dynamic> toJson() {
@@ -32,6 +33,7 @@ class JobModel extends Job {
       'dropoff_location': dropoffLocation,
       'status': status,
       'complete_by': completeBy.toIso8601String(),
+      'job_location': jobLocation,
     };
   }
 
@@ -50,6 +52,7 @@ class JobModel extends Job {
       dropoffLocation: map['dropoff_location'] as String?,
       status: map['status'] as String,
       completeBy: DateTime.parse(map['complete_by']),
+      jobLocation: map['job_location'] as String?,
     );
   }
 
@@ -67,6 +70,7 @@ class JobModel extends Job {
     Object? dropoffLocation = const _Unset(),
     String? status,
     DateTime? completeBy,
+    Object? jobLocation = const _Unset(),
   }) {
     return JobModel(
       id: id ?? this.id,
@@ -88,6 +92,9 @@ class JobModel extends Job {
           : dropoffLocation as String?,
       status: status ?? this.status,
       completeBy: completeBy ?? this.completeBy,
+      jobLocation: jobLocation is _Unset
+          ? this.jobLocation
+          : jobLocation as String?,
     );
   }
 }

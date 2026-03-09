@@ -12,6 +12,7 @@ final class JobUpload extends JobEvent {
   final String? pickupLocation;
   final String? dropoffLocation;
   final DateTime completeBy;
+  final String? jobLocation;
 
   JobUpload({
     required this.title,
@@ -22,6 +23,7 @@ final class JobUpload extends JobEvent {
     this.pickupLocation,
     this.dropoffLocation,
     required this.completeBy,
+    this.jobLocation,
   });
 }
 
