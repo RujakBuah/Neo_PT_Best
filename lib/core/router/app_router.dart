@@ -7,7 +7,7 @@ import 'package:pt_best/features/auth/presentation/pages/login_page.dart';
 import 'package:pt_best/features/jobs/presentation/pages/add_job_page.dart';
 import 'package:pt_best/features/jobs/presentation/pages/job_info_page.dart';
 import 'package:pt_best/features/jobs/presentation/pages/job_listing_page.dart';
-import 'package:pt_best/features/jobs/presentation/pages/order_page.dart';
+import 'package:pt_best/features/jobs/presentation/pages/my_job_page.dart';
 
 final appRouter = GoRouter(
   redirect: (context, state) {
@@ -29,7 +29,7 @@ final appRouter = GoRouter(
       builder: (context, state, child) => MainShell(child: child),
       routes: [
         GoRoute(path: '/', builder: (_, _) => const JobListingPage()),
-        GoRoute(path: '/orders', builder: (_, _) => const OrderPage()),
+        GoRoute(path: '/orders', builder: (_, _) => const MyJobPage()),
         GoRoute(path: '/add-job', builder: (_, _) => const AddJobPage()),
       ],
     ),

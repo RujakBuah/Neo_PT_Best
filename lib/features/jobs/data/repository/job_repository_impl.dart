@@ -68,4 +68,14 @@ class JobRepositoryImpl implements JobRepository {
       return left(Failure(e.message));
     }
   }
+
+  @override
+  Future<Either<Failure, List<Job>>> getMyJobs({required String userId}) async {
+    try {
+      final jobs = await jobRemoteDataSource.getMyJobs(userId: userId);
+      return right(jobs);
+    } on ServerException catch (e) {
+      return left(Failure(e.message));
+    }
+  }
 }

@@ -8,6 +8,7 @@ abstract interface class JobRemoteDataSource {
   Future<List<JobModel>> getJobs();
   Future<void> applyForJob({required String jobId, required String userId});
   Future<int> getAvailableJobCount();
+  Future<List<JobModel>> getMyJobs({required String userId});
 }
 
 class JobRemoteDataSourceImpl implements JobRemoteDataSource {
@@ -81,4 +82,17 @@ class JobRemoteDataSourceImpl implements JobRemoteDataSource {
 
   @override
   Session? get currentUserSession => supabaseClient.auth.currentSession;
+
+  @override
+  Future<List<JobModel>> getMyJobs({required String userId}) async {
+    try {
+      final jobs = await supabaseClient
+          .from('jobs')
+          .select('*')
+          .eq('assigned_to', userId);
+      return jobs.map((job) => JobModel.fromJson(job)).toList();
+    } on PostgrestException catch (e) {
+      throw ServerException(e.message);
+    }
+  }
 }
