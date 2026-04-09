@@ -14,6 +14,7 @@ import 'package:pt_best/features/jobs/domain/repository/job_repository.dart';
 import 'package:pt_best/features/jobs/domain/usecases/add_job.dart';
 import 'package:pt_best/features/jobs/domain/usecases/apply_for_job.dart';
 import 'package:pt_best/features/jobs/domain/usecases/get_job.dart';
+import 'package:pt_best/features/jobs/domain/usecases/get_my_jobs.dart';
 import 'package:pt_best/features/jobs/presentation/bloc/job_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -63,11 +64,13 @@ void _initJobs() {
     ..registerFactory(() => AddJob(serviceLocator()))
     ..registerFactory(() => GetJob(serviceLocator()))
     ..registerFactory(() => ApplyForJob(serviceLocator()))
+    ..registerFactory(() => GetMyJobs(serviceLocator()))
     ..registerLazySingleton(
       () => JobBloc(
         addJob: serviceLocator(),
         getJob: serviceLocator(),
         applyForJob: serviceLocator(),
+        getMyJobs: serviceLocator(),
       ),
     );
 }

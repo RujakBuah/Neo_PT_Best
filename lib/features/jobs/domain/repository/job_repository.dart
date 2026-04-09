@@ -21,4 +21,6 @@ abstract interface class JobRepository {
     required String jobId,
     required String userId,
   });
+
+  Future<Either<Failure, List<Job>>> getMyJobs({required String userId});
 }

@@ -24,3 +24,8 @@ final class JobDisplaySuccess extends JobState {
 final class JobApplySuccess extends JobState {}
 
 final class JobSeeInfoSuccess extends JobState {}
+
+final class JobDisplayMyJobSuccess extends JobState {
+  final List<Job> jobs;
+  const JobDisplayMyJobSuccess(this.jobs);
+}

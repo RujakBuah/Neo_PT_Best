@@ -35,3 +35,9 @@ final class JobApply extends JobEvent {
 
   JobApply({required this.jobId, required this.userId});
 }
+
+final class JobFetchMyJobs extends JobEvent {
+  final String userId;
+
+  JobFetchMyJobs({required this.userId});
+}
