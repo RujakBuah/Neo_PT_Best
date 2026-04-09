@@ -65,7 +65,7 @@ Each layer has a clear responsibility:
 - [x] Apply for a job — assigns the current user to a job
 - [x] Post a new job — supports Delivery (with pickup/dropoff), Cleaning, and Repair types
 - [x] Job info page — detailed view of a single job
-- [ ] Orders page — view your own active/completed jobs *(coming soon)*
+- [x] Orders page — view your own active/completed jobs 
 
 ---
 
